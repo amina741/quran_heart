@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خريطة حفظ القرآن - قلب</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      direction: rtl;
+    }
+    h1 {
+      color: #8e44ad;
+    }
+    .heart {
+      width: 600px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      transform: rotate(-45deg);
+    }
+    .sura {
+      width: 60px;
+      height: 60px;
+      margin: 5px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+    .sura.saved {
+      background-color: #f48fb1;
+      color: white;
+      font-weight: bold;
+    }
+    .container {
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>خريطة حفظ القرآن - على شكل قلب</h1>
+  <div class="container">
+    <div class="heart" id="heart"></div>
+  </div>
+
+  <script>
+    const surahs = [
+      "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
+      "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
+      "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+      "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
+      "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
+      "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+      "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
+      "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
+      "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
+      "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
+      "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
+      "المسد", "الإخلاص", "الفلق", "الناس"
+    ];
+
+    const heartDiv = document.getElementById("heart");
+
+    surahs.forEach((sura, index) => {
+      const div = document.createElement("div");
+      div.className = "sura";
+      div.textContent = sura;
+
+      // Check saved state
+      const saved = localStorage.getItem(`sura_${index}`);
+      if (saved === "1") div.classList.add("saved");
+
+      div.onclick = () => {
+        div.classList.toggle("saved");
+        localStorage.setItem(`sura_${index}`, div.classList.contains("saved") ? "1" : "0");
+      };
+
+      heartDiv.appendChild(div);
+    });
+  </script>
+</body>
+</html>
